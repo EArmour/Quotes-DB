@@ -3,10 +3,20 @@
 Public Class frmQuotes
 
     Dim dir As String = Environment.GetEnvironmentVariable("DropboxPath")
-    'Dim dir As String = "C:\Users\Evan\Dropbox"
-    Dim files() As String = Directory.GetFiles(dir & "\Quotes\")
+    Dim changed() As String
 
     Public Sub frmQuotes_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        If dir = Nothing Then
+            dir = Environment.GetEnvironmentVariable("USERPROFILE")
+            dir = dir & "\Dropbox"
+            If Directory.Exists(dir) = False Then
+                dir = "C:\Dropbox"
+                If Directory.Exists(dir) = False Then
+                    Dim inputDir As String = InputBox("Dropbox directory not found! Enter full Dropbox directory (IE: C:\Users\John\Dropbox)", "Error")
+                    dir = inputDir.Trim("\")
+                End If
+            End If
+        End If
         RefreshCategories()
     End Sub
 
@@ -16,6 +26,7 @@ Public Class frmQuotes
         ' Open quote files in system default .txt viewer
         Dim fileLoc() As String = RefreshCategories()
         Diagnostics.Process.Start(fileLoc(selected))
+        lstCategory.SelectedIndex() = selected
     End Sub
 
     Private Sub btnAdd_KeyPress(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtSource.KeyPress, txtAuthor.KeyPress
@@ -37,6 +48,7 @@ Public Class frmQuotes
             End If
             active.WriteLine("")
             active.Close()
+            lstCategory.SelectedIndex() = selected
             txtQuote.Text = Nothing
             txtAuthor.Text = Nothing
             txtSource.Text = Nothing
