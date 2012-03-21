@@ -1,3 +1,8 @@
 This basic program is used to maintain a database of quotations, categorized in plain-text files stored in the Dropbox directory.
 
 It is recommended to run the Dropbox Path Finder, under /dependencies, in order to add an environment variable that directs to the Dropbox directory to account for various install locations.
+
+TODO:
+
+- Sort quotes by same author together in category files.
+- Better first-run experience

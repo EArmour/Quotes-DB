@@ -3,20 +3,36 @@
 Public Class frmQuotes
 
     Dim dir As String = Environment.GetEnvironmentVariable("DropboxPath")
-    Dim changed() As String
 
     Public Sub frmQuotes_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        If dir = Nothing Then
-            dir = Environment.GetEnvironmentVariable("USERPROFILE")
-            dir = dir & "\Dropbox"
-            If Directory.Exists(dir) = False Then
-                dir = "C:\Dropbox"
+        Dim appdata As String = Environment.GetEnvironmentVariable("APPDATA")
+
+        ' Check for existing settings file
+        If Directory.Exists(appdata & "\Quotes-DB") = False Then
+            ' Check common installation paths if %DropboxPath% is not available
+            If dir = Nothing Then
+                dir = Environment.GetEnvironmentVariable("USERPROFILE")
+                dir = dir & "\Dropbox"
                 If Directory.Exists(dir) = False Then
-                    Dim inputDir As String = InputBox("Dropbox directory not found! Enter full Dropbox directory (IE: C:\Users\John\Dropbox)", "Error")
-                    dir = inputDir.Trim("\")
+                    dir = "C:\Dropbox"
+                    If Directory.Exists(dir) = False Then
+                        Dim inputDir As String = InputBox("Dropbox directory not found! Enter full Dropbox directory (EG: C:\Users\John\Dropbox)", "Error")
+                        dir = inputDir.Trim("\")
+                    End If
                 End If
             End If
+
+            Directory.CreateDirectory(appdata & "\Quotes-DB")
+            Dim prefs As StreamWriter = New StreamWriter(appdata & "\Quotes-DB\settings.txt", True)
+            prefs.WriteLine(dir)
+            prefs.Close()
+        Else
+            ' Read quote directory from stored settings if they exist
+            Dim dirRead As StreamReader = New StreamReader(appdata & "\Quotes-DB\settings.txt")
+            dir = dirRead.ReadLine()
+            dirRead.Close()
         End If
+
         RefreshCategories()
     End Sub
 
