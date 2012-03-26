@@ -22,6 +22,7 @@ Partial Class frmQuotes
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmQuotes))
         Me.lblCategory = New System.Windows.Forms.Label()
         Me.lblQuote = New System.Windows.Forms.Label()
         Me.lblAuthor = New System.Windows.Forms.Label()
@@ -33,6 +34,7 @@ Partial Class frmQuotes
         Me.txtQuote = New System.Windows.Forms.TextBox()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnAddCat = New System.Windows.Forms.Button()
+        Me.chkSame = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'lblCategory
@@ -128,11 +130,22 @@ Partial Class frmQuotes
         Me.btnAddCat.Text = "Add Category"
         Me.btnAddCat.UseVisualStyleBackColor = True
         '
+        'chkSame
+        '
+        Me.chkSame.AutoSize = True
+        Me.chkSame.Location = New System.Drawing.Point(59, 267)
+        Me.chkSame.Name = "chkSame"
+        Me.chkSame.Size = New System.Drawing.Size(103, 17)
+        Me.chkSame.TabIndex = 7
+        Me.chkSame.Text = "Maintain Source"
+        Me.chkSame.UseVisualStyleBackColor = True
+        '
         'frmQuotes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(379, 292)
+        Me.Controls.Add(Me.chkSame)
         Me.Controls.Add(Me.btnAddCat)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.txtQuote)
@@ -144,6 +157,7 @@ Partial Class frmQuotes
         Me.Controls.Add(Me.lblAuthor)
         Me.Controls.Add(Me.lblQuote)
         Me.Controls.Add(Me.lblCategory)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmQuotes"
         Me.Text = "Quotes"
         Me.ResumeLayout(False)
@@ -161,5 +175,6 @@ Partial Class frmQuotes
     Friend WithEvents txtQuote As System.Windows.Forms.TextBox
     Friend WithEvents btnAdd As System.Windows.Forms.Button
     Friend WithEvents btnAddCat As System.Windows.Forms.Button
+    Friend WithEvents chkSame As System.Windows.Forms.CheckBox
 
 End Class

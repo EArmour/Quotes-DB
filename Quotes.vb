@@ -66,8 +66,11 @@ Public Class frmQuotes
             active.Close()
             lstCategory.SelectedIndex() = selected
             txtQuote.Text = Nothing
-            txtAuthor.Text = Nothing
-            txtSource.Text = Nothing
+            'Option to keep same source for multiple quotes
+            If chkSame.Checked = False Then
+                txtAuthor.Text = Nothing
+                txtSource.Text = Nothing
+            End If
             txtQuote.Focus()
         End If
     End Sub
